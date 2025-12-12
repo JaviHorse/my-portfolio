@@ -45,28 +45,15 @@ const InteractiveCard = ({ children, className }) => {
 
 // Hobby Card Component
 const HobbyCard = ({ name, description, Icon, image }) => {
-  const [isClicked, setIsClicked] = useState(false);
-
-  const handleClick = () => {
-    setIsClicked(true);
-    setTimeout(() => {
-      setIsClicked(false);
-    }, 2000);
-  };
-
   return (
-    <InteractiveCard className="magic-bento-card !p-0 flex flex-col transition hover:border-purple-600/50 relative overflow-hidden min-h-[300px] group cursor-pointer" onClick={handleClick}>
+    <InteractiveCard className="magic-bento-card !p-0 flex flex-col transition hover:border-purple-600/50 relative overflow-hidden min-h-[300px] group">
       {/* Background Image */}
       <Image
         src={image}
         alt={name}
         fill
         style={{ objectFit: 'cover' }}
-        className={`transition-all duration-500 ${
-          isClicked 
-            ? 'opacity-70 scale-110' 
-            : 'opacity-20 group-hover:opacity-70 group-hover:scale-110'
-        }`}
+        className="opacity-20 group-hover:opacity-70 transition-all duration-500 group-hover:scale-110"
       />
 
       {/* Content Overlay */}
