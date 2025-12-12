@@ -17,6 +17,16 @@ export default function HomePage() {
     }
   }, []);
 
+  // Ensure landing at the top when a hash is present in the URL
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      // Remove the hash from the URL without adding a new history entry
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+      // Jump to top to avoid automatic browser scroll to the anchor
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   const handleSmoothScroll = (
     e: React.MouseEvent<HTMLAnchorElement>,
     targetId: string
