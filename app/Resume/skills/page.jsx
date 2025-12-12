@@ -82,7 +82,6 @@ export default function SkillsPage() {
       
       {/* HEADER */}
       <header className="pb-6 px-4 max-w-7xl mx-auto">
-        {/* ✅ Back Button (Fixed) */}
         <div className="mb-6">
           <Link
             href="/#projects"
