@@ -53,7 +53,7 @@ const skillCategories = [
   {
     category: 'Frameworks & Libraries',
     description: 'Tools I learned in my internships and school',
-    skills: ['React / Next.js', 'Node.js / Express', 'Tailwind CSS']
+    skills: ['React / Next.js', 'Node.js / Express', 'Tailwind CSS', 'Spring Framework']
   },
   {
     category: 'Academics',
@@ -107,7 +107,7 @@ export default function SkillsPage() {
       <header className="pb-6 px-4 max-w-7xl mx-auto">
         <div className="mb-6">
           <Link
-            href="/#projects"
+            href="/projects"
             className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />

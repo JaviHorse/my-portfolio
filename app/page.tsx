@@ -1,52 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { Mail, Phone, Linkedin } from "lucide-react";
-
+import Link from "next/link";
 import GradientText from "./components/GradientText";
 import DotGrid from "./components/DotGrid";
-import MagicBento from "./components/MagicBento";
 
 export default function HomePage() {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollToPlugin);
-    }
-  }, []);
-
-  // Ensure landing at the top when a hash is present in the URL
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash) {
-      // Remove the hash from the URL without adding a new history entry
-      history.replaceState(null, "", window.location.pathname + window.location.search);
-      // Jump to top to avoid automatic browser scroll to the anchor
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
-  const handleSmoothScroll = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string
-  ) => {
-    e.preventDefault();
-    const targetElement = document.getElementById(targetId);
-
-    if (targetElement) {
-      gsap.to(window, {
-        duration: 1.2,
-        scrollTo: {
-          y: targetElement,
-          // ✅ use offsetY instead of offset
-          offsetY: -80,
-        },
-        ease: "power3.inOut",
-      });
-    }
-  };
-
   return (
     <main className="min-h-screen relative overflow-hidden bg-black">
       {/* Global dot background */}
@@ -70,7 +29,7 @@ export default function HomePage() {
       />
 
       <div className="relative z-10 text-white min-h-screen">
-        {/* ============= HERO ============= */}
+        {/* ============= INTRODUCTION HERO ============= */}
         <section className="max-w-5xl mx-auto px-6 pt-24 pb-28">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-14">
             {/* LEFT */}
@@ -99,23 +58,21 @@ export default function HomePage() {
                 aspiring Data Scientist who can adapt to any role in a team.
               </p>
 
-              {/* BUTTONS */}
+              {/* NAVIGATION BUTTONS */}
               <div className="mt-8 flex gap-4">
-                <a
-                  href="#projects"
-                  onClick={(e) => handleSmoothScroll(e, "projects")}
+                <Link
+                  href="/projects"
                   className="rounded-full border border-cyan-500 px-6 py-2 text-sm font-semibold hover:bg-cyan-500 hover:text-black transition"
                 >
-                  About Me
-                </a>
+                  Projects
+                </Link>
 
-                <a
-                  href="#contact"
-                  onClick={(e) => handleSmoothScroll(e, "contact")}
+                <Link
+                  href="/contacts"
                   className="rounded-full border border-slate-600 px-6 py-2 text-sm font-semibold hover:border-cyan-400 hover:text-cyan-400 transition"
                 >
                   Contact
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -129,81 +86,6 @@ export default function HomePage() {
                   className="object-cover rounded-2xl border border-white/10 shadow-[0_0_60px_rgba(64,255,170,0.15)] transition duration-500 ease-out group-hover:translate-y-[-5px] group-hover:rotate-1"
                   priority
                 />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============= PROJECTS / MAGIC BENTO ============= */}
-        <section id="projects" className="flex justify-center px-6 pb-32 pt-16">
-          <div className="max-w-5xl w-full">
-            <h2 className="mb-8 text-2xl md:text-3xl font-semibold text-white text-center md:text-left">
-              Key Focus Areas
-            </h2>
-
-            <div className="flex justify-center">
-              <MagicBento
-                enableTilt
-                enableStars
-                enableMagnetism
-                glowColor="64, 255, 170"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ============= CONTACT ============= */}
-        <section id="contact" className="max-w-5xl mx-auto px-6 pb-32 pt-10">
-          <div className="border-t border-white/10 pt-10">
-            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-              {/* Left: heading */}
-              <div>
-                <h2 className="text-2xl md:text-3xl font-semibold text-white">
-                  Get in Touch
-                </h2>
-                <p className="mt-2 text-slate-400 max-w-sm text-sm md:text-base">
-                  Open to internships, collaborations, and interesting
-                  projects—feel free to reach out through any of the channels
-                  below.
-                </p>
-              </div>
-
-              {/* Right: contact list */}
-              <div className="flex flex-col gap-3 text-slate-300 text-sm md:text-base">
-                {/* Email */}
-                <a
-                  href="mailto:javiermacasaet@gmail.com"
-                  className="group flex items-center gap-3 hover:text-cyan-400 transition w-fit"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-500/40 bg-cyan-500/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-300/60 transition">
-                    <Mail className="w-4 h-4 text-cyan-300" />
-                  </span>
-                  <span>javiermacasaet@gmail.com</span>
-                </a>
-
-                {/* Phone */}
-                <a
-                  href="tel:+639228118406"
-                  className="group flex items-center gap-3 hover:text-cyan-400 transition w-fit"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-500/40 bg-cyan-500/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-300/60 transition">
-                    <Phone className="w-4 h-4 text-cyan-300" />
-                  </span>
-                  <span>0922 811 8406</span>
-                </a>
-
-                {/* LinkedIn */}
-                <a
-                  href="https://www.linkedin.com/in/javiermacasaet/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-3 hover:text-cyan-400 transition w-fit"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-500/40 bg-cyan-500/10 group-hover:bg-cyan-500/20 group-hover:border-cyan-300/60 transition">
-                    <Linkedin className="w-4 h-4 text-cyan-300" />
-                  </span>
-                  <span>linkedin.com/in/javiermacasaet</span>
-                </a>
               </div>
             </div>
           </div>

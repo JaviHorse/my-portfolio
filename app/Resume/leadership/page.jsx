@@ -102,7 +102,7 @@ export default function LeadershipPage() {
         {/* Back Button */}
         <div className="mb-6">
           <Link 
-            href="/#projects" 
+            href="/projects" 
             className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
