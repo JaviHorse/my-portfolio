@@ -127,7 +127,7 @@ export default function EducationPage() {
             className="magic-bento-card p-0 flex flex-col h-full transition hover:border-purple-600/50"
           >
             {/* Full Background Image Container */}
-            <div className="relative w-full h-full min-h-[400px] rounded-[inherit] overflow-hidden">
+            <div className="relative w-full h-auto md:h-full md:min-h-[400px] rounded-[inherit] overflow-hidden">
               <Image 
                 src={item.image} 
                 alt="University Campus or School building" 
@@ -137,7 +137,7 @@ export default function EducationPage() {
               />
                 
               {/* Content Overlay */}
-              <div className="relative z-10 p-8 bg-black/40 h-full flex flex-col justify-start">
+              <div className="relative z-10 p-8 bg-black/40 flex flex-col justify-start">
                     
                 {/* Top Row: Institution, Degree, Dates */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-gray-500/50 pb-4">

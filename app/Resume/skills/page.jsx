@@ -48,7 +48,7 @@ const skillCategories = [
   {
     category: 'Programming Languages',
     description: 'Languages I used in school and picked up through personal projects.',
-    skills: ['Python', 'JavaScript/TypeScript', 'SQL', 'Java']
+    skills: ['Python', 'JavaScript/ TypeScript', 'SQL', 'Java']
   },
   {
     category: 'Frameworks & Libraries',
