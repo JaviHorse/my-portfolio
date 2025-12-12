@@ -18,6 +18,16 @@
     user-select: none;
 }
 
+/* Allow specific cards to grow in height on narrower viewports instead of enforcing aspect-ratio */
+@media (max-width: 1023px) {
+    .stretch-height.magic-bento-card {
+        aspect-ratio: auto !important;
+        min-height: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+}
+
 /* --- Grid Layout --- */
 .card-grid {
     display: grid;

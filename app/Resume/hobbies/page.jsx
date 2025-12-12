@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
@@ -33,7 +33,7 @@ const InteractiveCard = ({ children, className }) => {
       style={{
         '--glow-x': `${mousePosition.x}px`,
         '--glow-y': `${mousePosition.y}px`,
-        // ✅ no ref access during render
+        //  no ref access during render
         '--glow-intensity': mousePosition.x >= 0 ? '1' : '0',
       }}
     >

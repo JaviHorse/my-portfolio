@@ -54,7 +54,7 @@ const InteractiveCard = ({ children, className, style }: InteractiveCardProps) =
 const profileData = {
   title: "Aspiring Data Scientist",
   focus:
-    "I'm an Aspiring Data Scientist with a background in software engineering and Java Game Development. I honestly aim to become an adaptable and flexible worker who can take on any role that is needed by a company. I strive to be a worker who can create innovative solutions and build systems that will not only benefit the company, but myself as well because I value my growth over anything else.",
+    "I'm an Aspiring Data Scientist with a background in software engineering and Java Game Development. I aim to become an adaptable and flexible worker who can take on any role that is needed by a company. I strive to be a worker who can create innovative solutions and build systems that will benefit the company and its long term vision.",
 
   keyAreas: [
     "Front-end Development",

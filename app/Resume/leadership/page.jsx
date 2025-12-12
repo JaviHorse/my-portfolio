@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Zap, Briefcase, ArrowLeft } from 'lucide-react';
@@ -50,11 +50,11 @@ const leadershipSections = [
     organization: 'Ateneo Taekwondo Varsity Team',
     icon: Zap,
     highlights: [
-      'I was the **acting Captain** of the Ateneo Taekwondo Varsity Team since my Freshman year, wherein I inspired my teammates to achieve excellence.',
-      "I was a **Philippine National Team prospect** but couldn\'t pursue due to academic priorities.",
-      'Won many medals for the Ateneo Taekwondo team and I was immediately a **UAAP medalist** during my rookie year.',
-      'Established **standardized protocols** for athlete performance tracking and attendance, enhancing overall team discipline and accountability.',
-      'Actively participated in all team events which strengthened **team cohesion and morale**.',
+      'I was the acting Captain of the Ateneo Taekwondo Varsity Team since my Freshman year, wherein I inspired my teammates to achieve excellence.',
+      "I was a Philippine National Team prospect but couldn\'t pursue due to academic priorities.",
+      'Won many medals for the Ateneo Taekwondo team and I was immediately a UAAP medalist during my rookie year.',
+      'Established standardized protocols for athlete performance tracking and attendance, enhancing overall team discipline and accountability.',
+      'Actively participated in all team events which strengthened team cohesion and morale.',
     ],
   },
   {
@@ -63,15 +63,32 @@ const leadershipSections = [
     icon: Briefcase,
     highlights: [
       'I was the Student Academic Subsidy Deputy head for the School of Social Sciences Sanggunian.',
-      'Managed a **PHP 385,000 budget** for research and thesis use of students in need of funding.',
-      'Actively participated in **Budget Screenings, hearings, and student interviews**.',
+      'Managed a PHP 385,000 budget for research and thesis use of students in need of funding.',
+      'Actively participated in Budget Screenings, hearings, and student interviews.',
       'Promoted academic subsidy initiatives in the School of Social Sciences Sanggunian.',
-      'Evaluated subsidy applicants with a **stringent process** to ensure efficient subsidy targeting.',
+      'Evaluated subsidy applicants with a stringent process to ensure efficient subsidy targeting.',
     ],
   },
 ];
 
 export default function LeadershipPage() {
+  // Keep two-column layout until viewport becomes too short to display content comfortably.
+  const [isTwoCol, setIsTwoCol] = useState(true);
+
+  useEffect(() => {
+    const checkLayout = () => {
+      if (typeof window === 'undefined') return;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // Thresholds: allow two columns on wide screens, or on tablets when there's enough height
+      const twoCol = w >= 1024 || (w >= 768 && h >= 720);
+      setIsTwoCol(twoCol);
+    };
+
+    checkLayout();
+    window.addEventListener('resize', checkLayout);
+    return () => window.removeEventListener('resize', checkLayout);
+  }, []);
   return (
     <main className="min-h-screen relative overflow-hidden bg-black">
       {/* DotGrid Background */}
@@ -120,12 +137,12 @@ export default function LeadershipPage() {
       </header>
 
       {/* CORE LAYOUT: stacked */}
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 min-h-0">
         
-        {/* TOP ROW: 3 Horizontal Images */}
-        <div className="flex space-x-4">
+        {/* TOP ROW: 3 Horizontal Images (responsive grid) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Taekwondo1 */}
-          <div className="relative w-1/3 aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
             <Image 
               src="/Taekwondo1.jpg" 
               alt="Taekwondo action shot 1" 
@@ -135,7 +152,7 @@ export default function LeadershipPage() {
             />
           </div>
           {/* Taekwondo2 */}
-          <div className="relative w-1/3 aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
             <Image 
               src="/Taekwondo2.jpg" 
               alt="Taekwondo action shot 2" 
@@ -145,7 +162,7 @@ export default function LeadershipPage() {
             />
           </div>
           {/* Taekwondo3 */}
-          <div className="relative w-1/3 aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-800">
             <Image 
               src="/Taekwondo3.jpg" 
               alt="Taekwondo team huddle or action shot 3" 
@@ -162,11 +179,11 @@ export default function LeadershipPage() {
         </div>
         
         {/* BOTTOM ROW: 2 Content Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> 
+        <div className={`grid gap-4 min-h-0 ${isTwoCol ? 'grid-cols-2' : 'grid-cols-1'}`}> 
           {leadershipSections.map((role, index) => (
             <InteractiveCard 
               key={index}
-              className="magic-bento-card !p-6 flex flex-col h-full transition hover:border-purple-600/50"
+              className="stretch-height magic-bento-card !p-6 flex flex-col flex-1 min-h-0 transition hover:border-purple-600/50 overflow-auto"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
