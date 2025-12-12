@@ -64,7 +64,7 @@ export default function HomePage() {
                   href="/projects"
                   className="rounded-full border border-cyan-500 px-6 py-2 text-sm font-semibold hover:bg-cyan-500 hover:text-black transition"
                 >
-                  Projects
+                  About me
                 </Link>
 
                 <Link
