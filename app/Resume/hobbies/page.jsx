@@ -46,14 +46,14 @@ const InteractiveCard = ({ children, className }) => {
 // Hobby Card Component
 const HobbyCard = ({ name, description, Icon, image }) => {
   return (
-    <InteractiveCard className="magic-bento-card !p-0 flex flex-col transition hover:border-purple-600/50 relative overflow-hidden min-h-[300px]">
+    <InteractiveCard className="magic-bento-card !p-0 flex flex-col transition hover:border-purple-600/50 relative overflow-hidden min-h-[300px] group">
       {/* Background Image */}
       <Image
         src={image}
         alt={name}
         fill
         style={{ objectFit: 'cover' }}
-        className="opacity-20 hover:opacity-40 transition duration-500"
+        className="opacity-20 group-hover:opacity-70 transition-all duration-500 group-hover:scale-110"
       />
 
       {/* Content Overlay */}
