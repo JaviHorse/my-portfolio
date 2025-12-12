@@ -7,10 +7,11 @@ import { Zap, Briefcase, ArrowLeft } from 'lucide-react';
 import DotGrid from '../../components/DotGrid';
 import '../../components/MagicBento.css'; 
 
-// --- Reusable Interactive Card Component (FIXED) ---
+// --- Reusable Interactive Card Component ---
 const InteractiveCard = ({ children, className }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const cardRef = useRef(null);
+  const contentRef = useRef(null);
 
   const handleMouseMove = useCallback((e) => {
     if (!cardRef.current) return;
@@ -24,20 +25,58 @@ const InteractiveCard = ({ children, className }) => {
     setMousePosition({ x: -200, y: -200 }); 
   }, []);
 
+  // If the card is marked with `stretch-height`, ensure its minHeight always
+  // fits the inner content to avoid clipping on tablet/iPad sizes.
+  useEffect(() => {
+    if (!className || !className.includes('stretch-height')) return;
+    if (!cardRef.current || !contentRef.current) return;
+
+    const updateMinHeight = () => {
+      if (!cardRef.current || !contentRef.current) return;
+      const computed = window.getComputedStyle(cardRef.current);
+      const baseMin = parseFloat(computed.minHeight) || 0;
+      const contentH = contentRef.current.scrollHeight || 0;
+      const paddingBuffer = 24; // extra spacing to avoid tight fit
+      const newMin = Math.max(baseMin, contentH + paddingBuffer);
+      cardRef.current.style.minHeight = `${newMin}px`;
+    };
+
+    updateMinHeight();
+    const ro = new ResizeObserver(updateMinHeight);
+    ro.observe(contentRef.current);
+    window.addEventListener('resize', updateMinHeight);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', updateMinHeight);
+    };
+  }, [className]);
+
   return (
     <div 
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      // ✅ CHANGED: allow scrolling behavior to work inside cleanly
       className={`${className} magic-bento-card--border-glow particle-container`}
       style={{
         '--glow-x': `${mousePosition.x}px`,
         '--glow-y': `${mousePosition.y}px`,
-        // ✅ no ref access during render
         '--glow-intensity': mousePosition.x >= 0 ? '1' : '0',
       }}
     >
-      {children}
+      {/* make THIS the scroll area */}
+      <div
+        ref={contentRef}
+        className="interactive-card-inner"
+        style={{
+          maxHeight: "100%",        
+          overflowY: "auto",         
+          overscrollBehavior: "contain", //prevents weird parent scroll bounce
+          paddingRight: "6px",       //gives space so scrollbar doesn't cover text
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 };
@@ -89,6 +128,12 @@ export default function LeadershipPage() {
     window.addEventListener('resize', checkLayout);
     return () => window.removeEventListener('resize', checkLayout);
   }, []);
+
+  // Choose a minimum column width so card width never becomes too small for text
+  const gridStyle = isTwoCol
+    ? { gridTemplateColumns: 'repeat(2, minmax(340px, 1fr))' }
+    : { gridTemplateColumns: '1fr' };
+
   return (
     <main className="min-h-screen relative overflow-hidden bg-black">
       {/* DotGrid Background */}
@@ -179,11 +224,13 @@ export default function LeadershipPage() {
         </div>
         
         {/* BOTTOM ROW: 2 Content Cards */}
-        <div className={`grid gap-4 min-h-0 ${isTwoCol ? 'grid-cols-2' : 'grid-cols-1'}`}> 
+        <div className="grid gap-4 min-h-0" style={gridStyle}> 
           {leadershipSections.map((role, index) => (
             <InteractiveCard 
               key={index}
-              className="stretch-height magic-bento-card !p-6 flex flex-col flex-1 min-h-0 transition hover:border-purple-600/50 overflow-auto"
+              // ✅ CHANGED: give the card a max height so scroll actually triggers on shorter screens
+              className="stretch-height magic-bento-card !p-6 flex flex-col flex-1 min-h-0 transition hover:border-purple-600/50"
+              style={{}}
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
