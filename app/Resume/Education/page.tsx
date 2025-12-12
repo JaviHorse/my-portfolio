@@ -3,7 +3,8 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image'; 
-import { ArrowLeft, GraduationCap, Sparkles, BookOpen } from 'lucide-react'; 
+import { ArrowLeft, GraduationCap, Sparkles, BookOpen } from 'lucide-react';
+import DotGrid from '../../components/DotGrid';
 import '../../components/MagicBento.css'; 
 
 // --- Reusable Interactive Card Component (FIXED) ---
@@ -71,8 +72,29 @@ const educationDetails = [
 
 export default function EducationPage() {
   return (
-    // Outer container for the whole page content
-    <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl"> 
+    <main className="min-h-screen relative overflow-hidden bg-black">
+      {/* DotGrid Background */}
+      <DotGrid
+        className="z-0 opacity-45"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+        }}
+        dotSize={12}
+        gap={36}
+        baseColor="#003344"
+        activeColor="#40ffaa"
+        proximity={180}
+        shockRadius={200}
+        shockStrength={8}
+        speedTrigger={120}
+      />
+      
+      {/* Content */}
+      <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl relative z-10"> 
       
       {/* 1. Header Section */}
       <header className="pb-8">
@@ -170,6 +192,7 @@ export default function EducationPage() {
         ))}
         
       </div>
-    </div>
+      </div>
+    </main>
   );
 }

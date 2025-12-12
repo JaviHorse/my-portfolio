@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import type { ReactNode, CSSProperties, MouseEvent } from "react";
 import Link from "next/link";
 import { ArrowLeft, Target, Code, Check } from "lucide-react";
+import DotGrid from "../../components/DotGrid";
 import "../../components/MagicBento.css";
 
 // --- Reusable Interactive Card Component (FIXED) ---
@@ -68,12 +69,33 @@ const profileData = {
 
 export default function AboutPage() {
   return (
-    // Tweak: viewTransition for smoother navigation
-    <div
-      className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl"
-      style={{ viewTransitionName: "page-content-about" }}
-    >
-      {/* 1. Header Section */}
+    <main className="min-h-screen relative overflow-hidden bg-black">
+      {/* DotGrid Background */}
+      <DotGrid
+        className="z-0 opacity-45"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+        }}
+        dotSize={12}
+        gap={36}
+        baseColor="#003344"
+        activeColor="#40ffaa"
+        proximity={180}
+        shockRadius={200}
+        shockStrength={8}
+        speedTrigger={120}
+      />
+      
+      {/* Content */}
+      <div
+        className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl relative z-10"
+        style={{ viewTransitionName: "page-content-about" }}
+      >
+        {/* 1. Header Section */}
       <header className="pb-8">
         <div className="mb-6">
           <Link
@@ -81,7 +103,7 @@ export default function AboutPage() {
             className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Bento Grid
+            Back
           </Link>
         </div>
 
@@ -133,6 +155,7 @@ export default function AboutPage() {
           </div>
         </InteractiveCard>
       </div>
-    </div>
+      </div>
+    </main>
   );
 }

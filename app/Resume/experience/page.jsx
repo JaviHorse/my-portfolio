@@ -2,8 +2,9 @@
 
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image'; 
-import { ArrowLeft, Briefcase, CheckCircle } from 'lucide-react'; 
+import Image from 'next/image';
+import { ArrowLeft, Briefcase, CheckCircle } from 'lucide-react';
+import DotGrid from '../../components/DotGrid';
 import '../../components/MagicBento.css'; 
 
 // --- Reusable Interactive Card Component (FIXED) ---
@@ -43,7 +44,7 @@ const InteractiveCard = ({ children, className }) => {
 // ------------------------------------------
 
 // NEW HOVER IMAGE COMPONENT
-const HoverImage = ({ src, alt }) => {
+const HoverImage = ({ src, alt, className = '', plain = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   
   const objectFitStyle = { 
@@ -52,7 +53,12 @@ const HoverImage = ({ src, alt }) => {
 
   return (
     <div 
-      className="relative w-full aspect-video rounded-lg overflow-hidden border border-purple-600 shadow-xl transition-all duration-300"
+      className={`${
+        plain
+          ? 'relative w-full transition-all duration-300'
+          : 'relative w-full rounded-lg overflow-hidden border border-purple-600 shadow-xl transition-all duration-300'
+      } ${className}`}
+      style={{ aspectRatio: '3 / 4' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -93,8 +99,29 @@ const experienceDetails = [
 
 export default function ExperiencePage() {
   return (
-    // Outer container for the whole page content
-    <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-6xl"> 
+    <main className="min-h-screen relative overflow-hidden bg-black">
+      {/* DotGrid Background */}
+      <DotGrid
+        className="z-0 opacity-45"
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+        }}
+        dotSize={12}
+        gap={36}
+        baseColor="#003344"
+        activeColor="#40ffaa"
+        proximity={180}
+        shockRadius={200}
+        shockStrength={8}
+        speedTrigger={120}
+      />
+      
+      {/* Content */}
+      <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-6xl relative z-10"> 
       
       {/* 1. Header Section */}
       <header className="pb-8">
@@ -116,17 +143,27 @@ export default function ExperiencePage() {
         </p>
       </header>
 
-      {/* 2. MAIN LAYOUT GRID: Splits the content 50/50 on large screens */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* 2. MAIN LAYOUT GRID: Five-column layout on large screens (images sandwich the bento) */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
 
-        {/* LEFT COLUMN: INTERACTIVE CARD */}
-        <div className="flex flex-col space-y-8">
+        {/* LEFT: Image 1 */}
+        <div className="flex flex-col space-y-4 pt-4 lg:pt-0 lg:col-span-1">
+          <HoverImage 
+            src={experienceDetails[0].image1} 
+            alt="Experience photo 1"
+            className="h-80"
+            plain={true}
+          />
+
+        </div>
+
+        {/* MIDDLE: Bento card */}
+        <div className="flex flex-col lg:col-span-3 min-h-0">
           {experienceDetails.map((item, index) => (
             <InteractiveCard 
               key={index}
-              className="magic-bento-card !p-8 flex flex-col h-full transition hover:border-purple-600/50"
+              className="magic-bento-card !p-8 flex flex-col flex-1 min-h-0 transition hover:border-purple-600/50 overflow-auto"
             >
-              {/* Top Row: Role, Company, Dates */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 border-b border-gray-700 pb-4">
                 <div className="mb-2 md:mb-0">
                   <h2 className="text-3xl font-bold text-purple-400 flex items-center">
@@ -137,15 +174,12 @@ export default function ExperiencePage() {
                 </div>
                 <p className="text-md font-semibold text-gray-500 shrink-0">{item.dates}</p>
               </div>
-              
-              {/* Details: Summary and Contributions */}
+
               <div className="pt-2">
-                {/* Summary */}
                 <p className="text-gray-300 mb-6 italic border-l-4 border-purple-500/50 pl-3">
                   {item.summary}
                 </p>
 
-                {/* Key Contributions */}
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2 flex items-center">
                     <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
@@ -165,24 +199,17 @@ export default function ExperiencePage() {
           ))}
         </div>
 
-        {/* RIGHT COLUMN: STACKED PICTURES */}
-        <div className="flex flex-col space-y-4 pt-4 lg:pt-0">
-          <h2 className="text-2xl font-bold text-white border-b border-gray-700 pb-2 mb-2">
-            Hover over the pics 😁
-          </h2>
-          
-          <HoverImage 
-            src={experienceDetails[0].image1} 
-            alt="Experience photo 1" 
-          />
-          
+        {/* RIGHT: Image 2 */}
+        <div className="flex flex-col lg:col-span-1">
           <HoverImage 
             src={experienceDetails[0].image2} 
-            alt="Experience photo 2" 
+            alt="Experience photo 2"
+            className="h-80"
+            plain={true}
           />
         </div>
-
       </div>
-    </div>
+      </div>
+    </main>
   );
 }
