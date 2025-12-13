@@ -1,7 +1,6 @@
 // HomePage.js
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import GradientText from "./components/GradientText";
 import DotGrid from "./components/DotGrid";
