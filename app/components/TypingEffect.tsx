@@ -19,8 +19,8 @@ export default function TypingEffect() {
   const [textIndex, setTextIndex] = useState(0);
 
   // Refs to safely clear timers (prevents StrictMode/double-effect issues)
-  const typingIntervalRef = useRef(null);
-  const restartTimeoutRef = useRef(null);
+  const typingIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const restartTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Cursor blink (runs forever)
   useEffect(() => {

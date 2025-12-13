@@ -20,10 +20,10 @@ export default function ImageSlideshow({ mainImageAlt = "Portrait" }) {
   );
 
   // outgoing card snapshot + phase
-  const [outgoing, setOutgoing] = useState(null); // { id, src }
+  const [outgoing, setOutgoing] = useState<{ id: string; src: string } | null>(null); // { id, src }
   const [phase, setPhase] = useState(0); // 0=none, 1=start, 2=fly-out, 3=behind-slide
 
-  const timeoutsRef = useRef([]);
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const visible = useMemo(() => deck.slice(0, 3), [deck]);
 
@@ -81,14 +81,14 @@ export default function ImageSlideshow({ mainImageAlt = "Portrait" }) {
   const poseMid = { x: 10, y: 10, s: 0.97, o: 0.95, r: 0 };
   const poseBack = { x: 20, y: 20, s: 0.94, o: 0.9, r: 0 };
 
-  const stackClassForPos = (pos) => {
+  const stackClassForPos = (pos: number) => {
     const shift = "transition-transform transition-opacity duration-500 ease-out";
     if (pos === 0) return `${stackWrap} z-30 ${shift}`;
     if (pos === 1) return `${stackWrap} z-20 ${shift}`;
     return `${stackWrap} z-10 ${shift}`;
   };
 
-  const stackStyleForPos = (pos) => {
+  const stackStyleForPos = (pos: number) => {
     const p = pos === 0 ? poseTop : pos === 1 ? poseMid : poseBack;
     return {
       transform: `translate3d(${p.x}px, ${p.y}px, 0) scale(${p.s})`,
