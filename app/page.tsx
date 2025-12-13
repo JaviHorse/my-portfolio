@@ -1,14 +1,16 @@
+// HomePage.js
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import GradientText from "./components/GradientText";
 import DotGrid from "./components/DotGrid";
+import ImageSlideshow from "./components/ImageSlideshow";
+import TypingEffect from "./components/TypingEffect";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen relative overflow-hidden bg-black">
-      {/* Global dot background */}
       <DotGrid
         className="z-0 opacity-45"
         style={{
@@ -29,14 +31,11 @@ export default function HomePage() {
       />
 
       <div className="relative z-10 text-white min-h-screen">
-        {/* ============= INTRODUCTION HERO ============= */}
         <section className="max-w-5xl mx-auto px-6 pt-24 pb-28">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-14">
             {/* LEFT */}
             <div>
-              <p className="text-xs tracking-[0.4em] text-cyan-400">
-                PORTFOLIO
-              </p>
+              <p className="text-xs tracking-[0.4em] text-cyan-400">PORTFOLIO</p>
 
               <h1 className="mt-4 text-4xl md:text-6xl font-black leading-tight">
                 <GradientText
@@ -53,12 +52,9 @@ export default function HomePage() {
                 Undergrad from Ateneo De Manila University.
               </p>
 
-              <p className="mt-4 max-w-xl text-slate-400 leading-relaxed">
-                Im a Computer Science Student, a Full Stack Developer, and an
-                aspiring Data Scientist who can adapt to any role in a team.
-              </p>
+              {/* ✅ REPLACED PARAGRAPH WITH TYPING EFFECT (same layout classes internally) */}
+              <TypingEffect />
 
-              {/* NAVIGATION BUTTONS */}
               <div className="mt-8 flex gap-4">
                 <Link
                   href="/projects"
@@ -77,17 +73,7 @@ export default function HomePage() {
             </div>
 
             {/* RIGHT */}
-            <div className="relative flex justify-center group">
-              <div className="relative w-[260px] h-[340px] md:w-[300px] md:h-[400px] transition duration-500 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_0_80px_rgba(64,255,170,0.3)]">
-                <Image
-                  src="/me.jpg"
-                  alt="Javier Macasaet"
-                  fill
-                  className="object-cover rounded-2xl border border-white/10 shadow-[0_0_60px_rgba(64,255,170,0.15)] transition duration-500 ease-out group-hover:translate-y-[-5px] group-hover:rotate-1"
-                  priority
-                />
-              </div>
-            </div>
+            <ImageSlideshow mainImageAlt="Javier Macasaet" />
           </div>
         </section>
       </div>

@@ -45,7 +45,7 @@
 
 /* === ShinyText (React Bits) === */
 .shiny-text {
-  color: #b5b5b5a4; /* Adjust this color to change intensity/style */
+  color: #b5b5b5a4;
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0) 40%,
@@ -149,3 +149,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ==========================================
+   CARD DECK SLIDESHOW ANIMATION
+   Used by: .animate-cardToBack
+   Keep duration in sync with JS (900ms)
+========================================== */
+
+@keyframes cardToBack {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  55% {
+    transform: translate3d(-70%, -4%, 0) scale(0.98) rotate(-6deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(20px, 20px, 0) scale(0.94) rotate(0deg);
+    opacity: 0.9;
+  }
+}
+
+.animate-cardToBack {
+  animation: cardToBack 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+

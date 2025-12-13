@@ -18,7 +18,7 @@ import "../../components/MagicBento.css";
 // ======================================================
 // Reusable Interactive Card (Hover + Click / Tap Glow)
 // ======================================================
-const InteractiveCard = ({ children, className }) => {
+const InteractiveCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   const [mousePosition, setMousePosition] = useState({ x: -200, y: -200 });
   const [isActive, setIsActive] = useState(false);
 
@@ -102,7 +102,7 @@ const InteractiveCard = ({ children, className }) => {
 // ======================================================
 // Hobby Card
 // ======================================================
-const HobbyCard = ({ name, description, Icon, image }) => {
+const HobbyCard = ({ name, description, Icon, image }: { name: string; description: string; Icon: React.ComponentType<{ className?: string }>; image: string }) => {
   const [lit, setLit] = useState(false);
   const litTimerRef = useRef<any>(null);
 
