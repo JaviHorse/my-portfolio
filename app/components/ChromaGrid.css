@@ -224,3 +224,12 @@
   pointer-events: none;
   z-index: 100;
 }
+
+@media (max-width: 768px) {
+  .chroma-overlay,
+  .chroma-fade {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
