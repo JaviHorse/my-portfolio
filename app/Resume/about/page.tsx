@@ -3,9 +3,9 @@
 import { useState, useRef, useCallback } from "react";
 import type { ReactNode, CSSProperties, MouseEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, Target, Code, Check } from "lucide-react";
+import { Target, Code, Check } from "lucide-react";
 import DotGrid from "../../components/DotGrid";
-import "../../components/MagicBento.css";
+import "../../components/ChromaGrid.css";
 
 // --- Reusable Interactive Card Component (FIXED) ---
 interface InteractiveCardProps {
@@ -35,13 +35,12 @@ const InteractiveCard = ({ children, className, style }: InteractiveCardProps) =
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`${className} magic-bento-card--border-glow particle-container`}
+      className={`${className} chroma-card`}
       style={{
         ...style,
-        // CSS variables for your glow effect
-        "--glow-x": `${mousePosition.x}px`,
-        "--glow-y": `${mousePosition.y}px`,
-        "--glow-intensity": mousePosition.x >= 0 ? "1" : "0",
+        // CSS variables for glow effect
+        "--mouse-x": `${mousePosition.x}px`,
+        "--mouse-y": `${mousePosition.y}px`,
       } as CSSProperties}
     >
       {children}
@@ -92,21 +91,11 @@ export default function AboutPage() {
       
       {/* Content */}
       <div
-        className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl relative z-10"
+        className="bento-section mx-auto pt-24 pb-24 text-white px-4 max-w-4xl relative z-10"
         style={{ viewTransitionName: "page-content-about" }}
       >
         {/* 1. Header Section */}
       <header className="pb-8">
-        <div className="mb-6">
-          <Link
-            href="/projects"
-            className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back
-          </Link>
-        </div>
-
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-2">
           About <span className="text-purple-500">Me</span>
         </h1>

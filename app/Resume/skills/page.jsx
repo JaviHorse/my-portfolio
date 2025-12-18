@@ -3,9 +3,9 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowLeft } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import DotGrid from '../../components/DotGrid';
-import '../../components/MagicBento.css'; 
+import '../../components/ChromaGrid.css'; 
 
 // --- Reusable Interactive Card Component (FIXED) ---
 const InteractiveCard = ({ children, className }) => {
@@ -29,12 +29,10 @@ const InteractiveCard = ({ children, className }) => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`${className} magic-bento-card--border-glow particle-container`}
+      className={`${className} chroma-card`}
       style={{
-        '--glow-x': `${mousePosition.x}px`,
-        '--glow-y': `${mousePosition.y}px`,
-        // ✅ FIX: no ref access during render
-        '--glow-intensity': mousePosition.x >= 0 ? '1' : '0',
+        '--mouse-x': `${mousePosition.x}px`,
+        '--mouse-y': `${mousePosition.y}px`,
       }}
     >
       {children}
@@ -101,20 +99,10 @@ export default function SkillsPage() {
       />
       
       {/* Content */}
-      <div className="bento-section mx-auto pt-12 pb-24 text-white relative z-10"> 
+      <div className="bento-section mx-auto pt-24 pb-24 text-white relative z-10"> 
       
       {/* HEADER */}
       <header className="pb-6 px-4 max-w-7xl mx-auto">
-        <div className="mb-6">
-          <Link
-            href="/projects"
-            className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back
-          </Link>
-        </div>
-        
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-2">
           Technical <span className="text-purple-500">Skills</span>
         </h1>

@@ -3,9 +3,9 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Zap, Briefcase, ArrowLeft } from 'lucide-react';
+import { Zap, Briefcase } from 'lucide-react';
 import DotGrid from '../../components/DotGrid';
-import '../../components/MagicBento.css'; 
+import '../../components/ChromaGrid.css'; 
 
 // --- Reusable Interactive Card Component ---
 const InteractiveCard = ({ children, className }) => {
@@ -57,11 +57,10 @@ const InteractiveCard = ({ children, className }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       // ✅ CHANGED: allow scrolling behavior to work inside cleanly
-      className={`${className} magic-bento-card--border-glow particle-container`}
+      className={`${className} chroma-card`}
       style={{
-        '--glow-x': `${mousePosition.x}px`,
-        '--glow-y': `${mousePosition.y}px`,
-        '--glow-intensity': mousePosition.x >= 0 ? '1' : '0',
+        '--mouse-x': `${mousePosition.x}px`,
+        '--mouse-y': `${mousePosition.y}px`,
       }}
     >
       {/* make THIS the scroll area */}
@@ -157,21 +156,10 @@ export default function LeadershipPage() {
       />
       
       {/* Content */}
-      <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-7xl relative z-10"> 
+      <div className="bento-section mx-auto pt-24 pb-24 text-white px-4 max-w-7xl relative z-10"> 
       
       {/* Header Section */}
       <header className="pb-8">
-        {/* Back Button */}
-        <div className="mb-6">
-          <Link 
-            href="/projects" 
-            className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back
-          </Link>
-        </div>
-        
         {/* Title */}
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-2">
           Leadership <span className="text-purple-500">Experiences</span>

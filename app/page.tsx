@@ -1,7 +1,6 @@
 // HomePage.js
 "use client";
 
-import Link from "next/link";
 import GradientText from "./components/GradientText";
 import DotGrid from "./components/DotGrid";
 import ImageSlideshow from "./components/ImageSlideshow";
@@ -51,24 +50,8 @@ export default function HomePage() {
                 Undergrad from Ateneo De Manila University.
               </p>
 
-              {/* ✅ REPLACED PARAGRAPH WITH TYPING EFFECT (same layout classes internally) */}
+              {/* Typing effect */}
               <TypingEffect />
-
-              <div className="mt-8 flex gap-4">
-                <Link
-                  href="/projects"
-                  className="rounded-full border border-cyan-500 px-6 py-2 text-sm font-semibold hover:bg-cyan-500 hover:text-black transition"
-                >
-                  About me
-                </Link>
-
-                <Link
-                  href="/contacts"
-                  className="rounded-full border border-slate-600 px-6 py-2 text-sm font-semibold hover:border-cyan-400 hover:text-cyan-400 transition"
-                >
-                  Contact
-                </Link>
-              </div>
             </div>
 
             {/* RIGHT */}

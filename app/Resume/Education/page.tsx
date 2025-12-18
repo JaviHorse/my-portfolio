@@ -3,9 +3,9 @@
 import { useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image'; 
-import { ArrowLeft, GraduationCap, Sparkles, BookOpen } from 'lucide-react';
+import { GraduationCap, Sparkles, BookOpen } from 'lucide-react';
 import DotGrid from '../../components/DotGrid';
-import '../../components/MagicBento.css'; 
+import '../../components/ChromaGrid.css'; 
 
 // --- Reusable Interactive Card Component (FIXED) ---
 const InteractiveCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
@@ -29,12 +29,10 @@ const InteractiveCard = ({ children, className }: { children: React.ReactNode; c
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`${className} magic-bento-card--border-glow particle-container`}
+      className={`${className} chroma-card`}
       style={{
-        '--glow-x': `${mousePosition.x}px`,
-        '--glow-y': `${mousePosition.y}px`,
-        // ✅ No ref access in render – just use mousePosition
-        '--glow-intensity': mousePosition.x >= 0 ? '1' : '0',
+        '--mouse-x': `${mousePosition.x}px`,
+        '--mouse-y': `${mousePosition.y}px`,
       } as React.CSSProperties}
     >
       {children}
@@ -94,21 +92,10 @@ export default function EducationPage() {
       />
       
       {/* Content */}
-      <div className="bento-section mx-auto pt-12 pb-24 text-white px-4 max-w-4xl relative z-10"> 
+      <div className="bento-section mx-auto pt-24 pb-24 text-white px-4 max-w-4xl relative z-10"> 
       
       {/* 1. Header Section */}
       <header className="pb-8">
-        {/* Back Button */}
-        <div className="mb-6">
-          <Link 
-            href="/projects" 
-            className="text-purple-400 hover:text-purple-300 transition duration-300 flex items-center"
-          >
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back
-          </Link>
-        </div>
-        
         {/* Title */}
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-2">
           Academic <span className="text-purple-500">Foundation</span>
