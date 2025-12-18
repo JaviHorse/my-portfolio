@@ -21,7 +21,6 @@ const Header = () => {
       activeHref={pathname}
       baseColor="transparent"
       pillTextColor="#ffffff"
-      onMobileMenuClick={() => {}}
     />
   );
 };
